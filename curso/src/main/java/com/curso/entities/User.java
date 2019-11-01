@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TB_USER")
 public class User implements Serializable{
@@ -26,6 +28,7 @@ public class User implements Serializable{
 	private String password;
 	
 	@OneToMany(mappedBy = "client")
+	@JsonIgnore //ignora os loops de chamada recursida entre User e Order
 	private List<Order> orderList = new ArrayList<>();
 
 	public User(Integer id, String name, String email, String phone, String password) {
