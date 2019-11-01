@@ -12,7 +12,7 @@ import com.curso.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
-public class TestConfig implements CommandLineRunner{
+public class TestConfig implements CommandLineRunner /*Interface que executa o método na inicialização da aplicação*/{
 
 	@Autowired
 	private UserRepository userRepository;

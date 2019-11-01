@@ -17,18 +17,18 @@ import com.curso.services.UserService;
 public class UserResource {
 	
 	@Autowired
-	private UserService serv;
+	private UserService service;
 	
 	@GetMapping
 	public ResponseEntity<List<User>> findAll(){
-		List<User> list = serv.findAll();
+		List<User> list = service.findAll();
 		
 		return ResponseEntity.ok().body(list);
 	};
 	
 	@GetMapping(value = "/{Id}")
 	public ResponseEntity<User> findById(@PathVariable Integer Id){ //PathVariable insere no campo Id do parâmetro um valor passado na instrução do GetMapping
-		User objUser = serv.findByID(Id);
+		User objUser = service.findByID(Id);
 		return ResponseEntity.ok().body(objUser);
 	}
 	
