@@ -22,67 +22,60 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-	
-	private OrderStatus orderStatus;
-	
+
+	private Integer orderStatus;
+
 	@ManyToOne
-	@JoinColumn(name = "client_id") //notacao informa que a chave estrangeira de Order sera client_id
+	@JoinColumn(name = "client_id") // notacao informa que a chave estrangeira de Order sera client_id
 	private User client;
 
 	public Order() {
 	}
-	
-	
+
 	public Order(Integer id, Instant moment, OrderStatus orderStatus, User client) {
 		Id = id;
 		this.moment = moment;
-		this.orderStatus = orderStatus;
+		setOrderStatus(orderStatus);
 		this.client = client;
 	}
 
-
 	public OrderStatus getOrderStatus() {
-		return orderStatus;
+		return OrderStatus.valueOfStatus(orderStatus);
 	}
-
 
 	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+		if (orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
 
+	}
 
 	public Integer getId() {
 		return Id;
 	}
 
-
 	public void setId(Integer id) {
 		Id = id;
 	}
-
 
 	public Instant getMoment() {
 		return moment;
 	}
 
-
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
-
 
 	public User getClient() {
 		return client;
 	}
 
-
 	public void setClient(User client) {
 		this.client = client;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -91,7 +84,6 @@ public class Order implements Serializable {
 		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -109,6 +101,5 @@ public class Order implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
 }
