@@ -25,6 +25,7 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String name;
 	private String description;
 	private Double price;
@@ -34,6 +35,7 @@ public class Product implements Serializable {
 	@JoinTable(name = "TB_PROD_CATE",
 	joinColumns = @JoinColumn(name = "product_id"),
 	inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JsonIgnore
 	private Set<Category> categories = new HashSet<>();
 
 	@OneToMany(mappedBy = "id.product")
