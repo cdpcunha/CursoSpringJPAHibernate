@@ -1,12 +1,15 @@
 package com.curso.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="TB_CATEGORY")
@@ -17,6 +20,9 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@Transient
+	private Set<Product> products = new HashSet<>();
 	
 	public Category(Long id, String name) {
 		super();
@@ -66,6 +72,10 @@ public class Category implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
 	}
 	
 	
