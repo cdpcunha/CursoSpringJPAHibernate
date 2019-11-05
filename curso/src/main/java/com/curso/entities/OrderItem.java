@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.curso.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="TB_ORDER_ITEM")
@@ -14,7 +15,7 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId //Referente à notation na classe OrderItemPK, informando que existe uma PK composta
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK(); //PK composta precisa ser instanciada em tempo de compilação
 	
 	private Integer quantity;
 	private Double price;
@@ -29,7 +30,8 @@ public class OrderItem implements Serializable {
 	public OrderItem() {
 	}
 
-//Gets e Sets manuais	
+//Gets e Sets manuais
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
